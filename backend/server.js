@@ -2,8 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
-require("./services/passport");
 require("./models/User");
+require("./services/passport");
 
 mongoose.connect(process.env.DB_STRING);
 
