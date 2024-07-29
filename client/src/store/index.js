@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/query";
-import { dummyReducer, test } from "./slices/dummySlice";
+// import { setupListeners } from "@reduxjs/toolkit/query";
+import { authReducer } from "./slices/authSlice";
 
 const store = configureStore({
   reducer: {
-    dummy: dummyReducer,
+    auth: authReducer,
   },
-  middleware(getDefaultMiddleware) {
-    getDefaultMiddleware();
-  },
+  // middleware(getDefaultMiddleware) {
+  //   getDefaultMiddleware();
+  // },
 });
 
-setupListeners(store.dispatch);
+// setupListeners(store.dispatch);
 
-export { store, test };
+export { store };
