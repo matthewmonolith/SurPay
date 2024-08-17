@@ -2,12 +2,12 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import { Container } from "@chakra-ui/react";
 
-const Root = () => {
+const Root = ({ userData }) => {
   return (
     <div>
-      <Header />
+      <Header userData={userData} />
       <Container>
-        <Outlet />
+        <Outlet context={{ userData }} />
       </Container>
     </div>
   );
