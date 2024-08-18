@@ -11,8 +11,6 @@ const Landing = () => <h2>Landing</h2>;
 const App = () => {
   const { data, error, isFetching } = useFetchUserQuery();
 
-  console.log(data);
-
   if (isFetching)
     return (
       <Center>

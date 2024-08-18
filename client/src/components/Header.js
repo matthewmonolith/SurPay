@@ -1,4 +1,6 @@
 "use client";
+import { useLazyLogoutUserQuery } from "../store";
+import { useNavigate } from "react-router-dom";
 
 import {
   Box,
@@ -10,7 +12,12 @@ import {
   Stack,
 } from "@chakra-ui/react";
 
-import {CloseIcon, HamburgerIcon, AddIcon, UnlockIcon} from '@chakra-ui/icons'
+import {
+  CloseIcon,
+  HamburgerIcon,
+  AddIcon,
+  UnlockIcon,
+} from "@chakra-ui/icons";
 
 const Links = [];
 
@@ -33,7 +40,22 @@ const NavLink = (props) => {
   );
 };
 
-const Header = () => {
+const Header = ({ userData }) => {
+  console.log(userData);
+
+  const [triggerLogout, result] = useLazyLogoutUserQuery();
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const res = await triggerLogout().unwrap();
+      navigate("/");
+    } catch (error) {
+      console.error("failed to logout", error);
+    }
+  };
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -59,35 +81,43 @@ const Header = () => {
               ))}
             </HStack>
           </HStack>
-          <Flex alignItems={"center"} gap='6'>
-            {/* <Button
-              variant={"solid"}
-              colorScheme={"teal"}
-              size={"sm"}
-              mr={4}
-              leftIcon={<AddIcon />}
-            >
-              New Survey
-            </Button> */}
-            {/* <Box >Credits: 5</Box>
-            <Button
-              variant={"solid"}
-              colorScheme={"purple"}
-              size={"sm"}
-              mr={4}
-              leftIcon={<AddIcon />}
-            >
-              Add Credits
-            </Button> */}
-            <Button
-              variant={"solid"}
-              colorScheme={"purple"}
-              size={"sm"}
-              mr={4}
-              leftIcon={<UnlockIcon />}
-            >
-              Login With Google
-            </Button>
+          <Flex alignItems={"center"} gap="6">
+            {userData && (
+              <>
+                <Box>Credits: 5</Box>
+
+                <Button
+                  variant={"solid"}
+                  colorScheme={"purple"}
+                  size={"sm"}
+                  mr={4}
+                  leftIcon={<AddIcon />}
+                >
+                  Add Credits
+                </Button>
+                <Button
+                  variant={"solid"}
+                  colorScheme={"red"}
+                  size={"sm"}
+                  mr={4}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+              </>
+            )}
+
+            {!userData && (
+              <Button
+                variant={"solid"}
+                colorScheme={"red"}
+                size={"sm"}
+                mr={4}
+                leftIcon={<UnlockIcon />}
+              >
+                <a href="/auth/google">Login With Google</a>
+              </Button>
+            )}
           </Flex>
         </Flex>
 
@@ -105,4 +135,4 @@ const Header = () => {
   );
 };
 
-export default Header
+export default Header;
