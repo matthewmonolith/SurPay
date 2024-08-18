@@ -1,6 +1,6 @@
 "use client";
 import { useLazyLogoutUserQuery } from "../store";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import {
   Box,
@@ -43,13 +43,15 @@ const NavLink = (props) => {
 const Header = ({ userData }) => {
   console.log(userData);
 
-  const [triggerLogout, result] = useLazyLogoutUserQuery();
+  const [triggerLogout] = useLazyLogoutUserQuery();
 
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       const res = await triggerLogout().unwrap();
+      console.log(res, "successfully logged out!");
+
       navigate("/");
     } catch (error) {
       console.error("failed to logout", error);
@@ -70,7 +72,9 @@ const Header = ({ userData }) => {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={"center"}>
-            <Box>SURPAY</Box>
+            <Box>
+              <Link to={userData ? "/surveys" : "/"}>SURPAY</Link>
+            </Box>
             <HStack
               as={"nav"}
               spacing={4}
@@ -110,7 +114,7 @@ const Header = ({ userData }) => {
             {!userData && (
               <Button
                 variant={"solid"}
-                colorScheme={"red"}
+                colorScheme={"purple"}
                 size={"sm"}
                 mr={4}
                 leftIcon={<UnlockIcon />}

@@ -1,15 +1,16 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "../pages/Root";
+import Landing from "./Landing";
 import { Spinner, Center } from "@chakra-ui/react";
 import { useFetchUserQuery } from "../store";
 
 const Dashboard = () => <h2>Dashboard</h2>;
 const SurveyNew = () => <h2>SurveyNew</h2>;
-const Landing = () => <h2>Landing</h2>;
+// const Landing = () => <h2>Landing</h2>;
 
 const App = () => {
-  const { data, error, isFetching } = useFetchUserQuery();
+  const { data, isFetching } = useFetchUserQuery();
 
   if (isFetching)
     return (

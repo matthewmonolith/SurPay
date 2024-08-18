@@ -11,7 +11,7 @@ export const authApi = createApi({
     //   query: () => "/current_user", //only relative path needed, proxy needed for dev, for prod the proxy doesn't exist of course
     // }),
     fetchUser: builder.query({
-      query: () => "/users/1",
+      query: () => "/users/14",
     }),
     logoutUser: builder.query({
       query: () => "/logout"
