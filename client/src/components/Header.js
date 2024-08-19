@@ -1,6 +1,7 @@
 "use client";
-import { useLazyLogoutUserQuery } from "../store";
+import { useLogoutUserMutation } from "../store";
 import { useNavigate, Link } from "react-router-dom";
+import Payments from "./Payments";
 
 import {
   Box,
@@ -43,16 +44,17 @@ const NavLink = (props) => {
 const Header = ({ userData }) => {
   console.log(userData);
 
-  const [triggerLogout] = useLazyLogoutUserQuery();
+  const [triggerLogout] = useLogoutUserMutation();
 
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       const res = await triggerLogout().unwrap();
-      console.log(res, "successfully logged out!");
-
-      navigate("/");
+      if(res){ 
+        console.log(res, "successfully logged out!");
+        navigate("/");
+      }
     } catch (error) {
       console.error("failed to logout", error);
     }
@@ -89,8 +91,8 @@ const Header = ({ userData }) => {
             {userData && (
               <>
                 <Box>Credits: 5</Box>
-
-                <Button
+                <Payments />
+                {/* <Button
                   variant={"solid"}
                   colorScheme={"purple"}
                   size={"sm"}
@@ -98,7 +100,7 @@ const Header = ({ userData }) => {
                   leftIcon={<AddIcon />}
                 >
                   Add Credits
-                </Button>
+                </Button> */}
                 <Button
                   variant={"solid"}
                   colorScheme={"red"}

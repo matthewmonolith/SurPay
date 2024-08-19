@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { userReducer } from "./slices/userSlice";
-import { authApi } from "./apis/authApi";
+import { userApi } from "./apis/userApi";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    [authApi.reducerPath]: authApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(userApi.middleware)
 });
 
 setupListeners(store.dispatch);
 
-export { useFetchUserQuery, useLazyLogoutUserQuery } from "./apis/authApi";
+export { useFetchUserQuery, useLogoutUserMutation } from "./apis/userApi";

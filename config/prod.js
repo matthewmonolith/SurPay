@@ -3,5 +3,7 @@ module.exports = {
     GOOGLECLIENTSECRET: process.env.GOOGLE_CLIENT_SECRET,
     DB_STRING: process.env.MONGO_URI,
     COOKIEKEY: process.env.COOKIE_KEY,
+    STRIPEPUBLISHABLEKEY: process.env.STRIPE_PUBLISHABLE_KEY,
+    STRIPESECRETKEY: process.env.STRIPE_SECRET_KEY
   };
   
