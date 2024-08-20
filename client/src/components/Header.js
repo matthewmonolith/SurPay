@@ -13,12 +13,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 
-import {
-  CloseIcon,
-  HamburgerIcon,
-  AddIcon,
-  UnlockIcon,
-} from "@chakra-ui/icons";
+import { CloseIcon, HamburgerIcon, UnlockIcon } from "@chakra-ui/icons";
 
 const Links = [];
 
@@ -50,13 +45,11 @@ const Header = ({ userData }) => {
 
   const handleLogout = async () => {
     try {
-      const res = await triggerLogout().unwrap();
-      if(res){ 
-        console.log(res, "successfully logged out!");
-        navigate("/");
-      }
+      await triggerLogout().unwrap();
+      console.log("Successfully logged out!");
+      navigate("/");
     } catch (error) {
-      console.error("failed to logout", error);
+      console.error("Failed to logout", error);
     }
   };
 

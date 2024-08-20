@@ -16,11 +16,15 @@ export const userApi = createApi({
       query: (token) => ({
         url: "/stripe",
         method: "POST",
-        body: { token: token },
+        body: token,
       }),
       invalidatesTags: [{ type: "Auth" }],
     }),
   }),
 });
 
-export const { useFetchUserQuery, useLogoutUserMutation } = userApi;
+export const {
+  useFetchUserQuery,
+  useLogoutUserMutation,
+  useHandleTokenMutation,
+} = userApi;
