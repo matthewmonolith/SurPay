@@ -6,8 +6,11 @@ import {
   Heading,
   Stack,
   Text,
-  Button
+  Button,
+  Image
 } from "@chakra-ui/react";
+
+import surpayLogo from "../assets/surpay3.png"
 
 const Landing = () => {
   return (
@@ -15,7 +18,7 @@ const Landing = () => {
       <Stack
         textAlign={"center"}
         align={"center"}
-        spacing={{ base: 8, md: 10 }}
+        spacing={{ base: 5, md: 5 }}
         py={{ base: 20, md: 28 }}
       >
         <Heading
@@ -23,7 +26,7 @@ const Landing = () => {
           fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
           lineHeight={"110%"}
         >
-          SURPAY
+          <Image src={surpayLogo} objectFit="fill"/>
         </Heading>
         <Heading
           fontWeight={600}
@@ -40,14 +43,14 @@ const Landing = () => {
           userbase.
         </Text>
         <Stack spacing={6} direction={"row"}>
-          <Button
+          {/* <Button
             rounded={"full"}
             px={6}
             colorScheme={"purple"}
             _hover={{ bg: "purple.600" }}
           >
             Learn More
-          </Button>
+          </Button> */}
         </Stack>
         <Flex w={"full"} justifyContent={"center"} overflow={"hidden"}>
           <svg

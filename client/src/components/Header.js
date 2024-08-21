@@ -2,7 +2,7 @@
 import { useLogoutUserMutation } from "../store";
 import { useNavigate, Link } from "react-router-dom";
 import Payments from "./Payments";
-
+import surpayLogo from "../assets/surpay3.png"
 import {
   Box,
   Flex,
@@ -11,6 +11,7 @@ import {
   Button,
   useDisclosure,
   Stack,
+  Image
 } from "@chakra-ui/react";
 
 import { CloseIcon, HamburgerIcon, UnlockIcon } from "@chakra-ui/icons";
@@ -68,7 +69,7 @@ const Header = ({ userData }) => {
           />
           <HStack spacing={8} alignItems={"center"}>
             <Box>
-              <Link to={userData ? "/surveys" : "/"}>SURPAY</Link>
+              <Link to={userData ? "/surveys" : "/"}><Image style={{'width': '130px', 'height': '58px'}} src={surpayLogo} objectFit="fill"/></Link>
             </Box>
             <HStack
               as={"nav"}
@@ -83,7 +84,7 @@ const Header = ({ userData }) => {
           <Flex alignItems={"center"} gap="6">
             {userData && (
               <>
-                <Box>Credits: 5</Box>
+                <Box>Credits: {userData.credits}</Box>
                 <Payments />
                 {/* <Button
                   variant={"solid"}
