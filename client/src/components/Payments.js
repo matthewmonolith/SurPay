@@ -20,7 +20,7 @@ const Payments = () => {
   return (
     <StripeCheckout
       name="SURPAY"
-      description="$5 for 5 survey credits"
+      description="£5 for 5 survey credits"
       amount={500} //defaulting to dollars for now, in cents
       token={(token) => handleSubmit(token)} //token back from stripe - callback called after receiving auth token from stripe API
       stripeKey={process.env.REACT_APP_STRIPE_KEY}

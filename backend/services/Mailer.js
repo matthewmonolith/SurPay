@@ -1,5 +1,5 @@
 const mailgun = require("mailgun-js");
-const keys = require("../config/keys");
+const keys = require("../../config/keys");
 
 class Mailer {
   constructor({ subject, recipients }, content) {

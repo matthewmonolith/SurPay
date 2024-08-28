@@ -6,13 +6,18 @@ const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
 const Survey = mongoose.model("surveys");
 
 module.exports = (app) => {
+  app.get('/api/surveys/feedback', (req, res) => {
+    res.send('Thanks for voting!')
+  })
+
+
   app.post("/api/surveys", requireLogin, requireCredits, async (req, res) => {
-    const { title, subject, body, recipients } = req.body;
+    const { surveyTitle, surveySubject, surveyBody, surveyRecipients } = req.body;
     const survey = new Survey({
-      title,
-      subject,
-      body,
-      recipients: recipients
+      title: surveyTitle,
+      subject: surveySubject,
+      body: surveyBody,
+      recipients: surveyRecipients
         .split(",")
         .map((email) => ({ email: email.trim() })),
       _user: req.user.id,
@@ -20,9 +25,9 @@ module.exports = (app) => {
     });
 
     //create email then send
-    const mailer = new Mailer(survey, surveyTemplate(survey));
-    try {
-      await mailer.send();
+    // const mailer = new Mailer(survey, surveyTemplate(survey));
+    // try {
+      // await mailer.send();
       await survey.save();
 
       req.user.credits -= 1;
@@ -30,9 +35,9 @@ module.exports = (app) => {
 
       //send back new value of credits, header in app automatically updates
       res.send(user);
-    } catch (error) {
-      res.status(422).send(error);
-    }
+    // } catch (error) {
+    //   res.status(422).send(error);
+    // }
   });
 
   app.post("/api/surveys/webhooks", (req, res) => {

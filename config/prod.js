@@ -7,4 +7,5 @@ module.exports = {
   STRIPESECRETKEY: process.env.STRIPE_SECRET_KEY,
   MAILGUNKEY: process.env.MAIL_GUN_KEY,
   MAILGUNDOMAIN: process.env.MAIL_GUN_DOMAIN,
+  REDIRECT: process.env.REDIRECT,
 };

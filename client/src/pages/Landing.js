@@ -6,7 +6,6 @@ import {
   Heading,
   Stack,
   Text,
-  Button,
   Image
 } from "@chakra-ui/react";
 
