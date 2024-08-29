@@ -14,7 +14,7 @@ import {
   Textarea,
   FormHelperText,
   FormErrorMessage,
-  CloseButton
+  CloseButton,
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import { usePostSurveyMutation } from "../../store";
@@ -164,7 +164,7 @@ const Form2 = ({
   );
 };
 
-export default function SurveyNew({handleClose}) {
+export default function SurveyNew({ handleClose }) {
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState({});
 
@@ -221,8 +221,9 @@ export default function SurveyNew({handleClose}) {
           status: "success",
           duration: 9000,
           isClosable: true,
+          position: "top",
         });
-        handleClose()
+        handleClose();
       }
     } catch (error) {
       console.error("failed to post survey!", error);
@@ -265,14 +266,14 @@ export default function SurveyNew({handleClose}) {
         minW="750px"
         maxWidth="800px"
         background="white"
-         position="relative"
+        position="relative"
       >
-          <CloseButton
-        position="absolute"
-        top="10px"
-        right="10px"
-        onClick={handleClose} // Add your function to handle the close action
-      />
+        <CloseButton
+          position="absolute"
+          top="10px"
+          right="10px"
+          onClick={handleClose} // Add your function to handle the close action
+        />
         {checkStep(step)}
         <ButtonGroup mt="5%" w="100%">
           <Flex w="100%" justifyContent="space-between">

@@ -15,8 +15,8 @@ module.exports = (survey) => {
           </tr>
           <tr>
             <td align="center" style="padding: 20px;">
-              <a href="${keys.REDIRECT}/api/surveys/feedback" style="display: inline-block; padding: 10px 20px; margin: 5px; color: #ffffff; background-color: #28a745; border-radius: 5px; text-decoration: none; font-size: 16px;">Yes</a>
-              <a href="${keys.REDIRECT}/api/surveys/feedback" style="display: inline-block; padding: 10px 20px; margin: 5px; color: #ffffff; background-color: #dc3545; border-radius: 5px; text-decoration: none; font-size: 16px;">No</a>
+              <a href="${keys.REDIRECT}/api/surveys/${survey.id}/yes" style="display: inline-block; padding: 10px 20px; margin: 5px; color: #ffffff; background-color: #28a745; border-radius: 5px; text-decoration: none; font-size: 16px;">Yes</a>
+              <a href="${keys.REDIRECT}/api/surveys/${survey.id}/no" style="display: inline-block; padding: 10px 20px; margin: 5px; color: #ffffff; background-color: #dc3545; border-radius: 5px; text-decoration: none; font-size: 16px;">No</a>
             </td>
           </tr>
           <tr>
