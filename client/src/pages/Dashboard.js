@@ -1,33 +1,179 @@
-import { Box, Modal } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Spinner,
+  Card,
+  CardHeader,
+  Heading,
+  CardBody,
+  Stack,
+  StackDivider,
+  Text,
+  Flex,
+  Button,
+} from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
 import SurveyNew from "../components/surveys/SurveyNew";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useFetchSurveysQuery } from "../store";
 
 const Dashboard = () => {
+  const { userData } = useOutletContext();
+  const navigate = useNavigate();
+  const [sort, setSort] = useState("desc");
+  const { data, error, isFetching } = useFetchSurveysQuery();
+  const [sortedData, setSortedData] = useState([]);
+  console.log(data);
+  
+
+  useEffect(() => {
+    if (!userData) {
+      navigate("/");
+    }
+  }, [userData, navigate]);
+
+  useEffect(() => {
+    if (Array.isArray(data)) {
+      if (sort === "desc") {
+        setSortedData([...data].reverse());
+      }else {
+        setSortedData([...data]);
+      }
+    }
+  }, [sort, data]);
+
   const [showModal, setShowModal] = useState(false);
   const handleClick = () => {
     setShowModal(!showModal);
   };
   return (
     <>
-      <Box
-        position="fixed"
-        bottom="4"
-        right="4"
-        bg="red"
-        width="50px"
-        height="50px"
-        borderRadius="full"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        boxShadow="md"
-        cursor="pointer"
-        onClick={handleClick}
-      >
-        <AddIcon color="white" />
-      </Box>
+      {error && (
+        <Card>
+          <CardBody>
+            <Text>
+              There was an error getting your surveys, please try again!
+            </Text>
+          </CardBody>
+        </Card>
+      )}
+
+      {userData && !error && (
+        <Box
+          position="fixed"
+          bottom="4"
+          right="4"
+          bg="#805AD5"
+          width="50px"
+          height="50px"
+          borderRadius="full"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          boxShadow="md"
+          cursor="pointer"
+          onClick={handleClick}
+        >
+          <AddIcon color="white" />
+        </Box>
+      )}
+
+      {isFetching && (
+        <Center>
+          <Spinner
+            margin={20}
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="purple.400"
+            size="xl"
+          />
+        </Center>
+      )}
+
+      {data && (
+        <>
+          <Flex m="4" gap="4">
+            <Button
+              bg="#A0AEC0"
+              color="white"
+              onClick={() => setSort("desc")}
+            >
+              Newest
+            </Button>
+            <Button
+              bg="#A0AEC0"
+              color="white"
+              onClick={() => setSort("asc")}
+            >
+              Oldest
+            </Button>
+          </Flex>
+          <Flex
+            mt="4"
+            wrap="wrap"
+            justify="flex-start"
+            width="100%"
+            px="5"
+            gap="5"
+          >
+            {sortedData.map((survey) => (
+              <Card
+                key={survey._id}
+                width="500px"
+                minWidth="300px"
+                _hover={{
+                  bg: "purple.100",
+                  // color: "white",
+                }}
+              >
+                <CardHeader>
+                  <Heading size="md" color="#805AD5">
+                    {survey.title}
+                  </Heading>
+                  Sent On: {new Date(survey.dateSent).toLocaleDateString()}
+                </CardHeader>
+
+                <CardBody>
+                  <Stack divider={<StackDivider />} spacing="4">
+                    <Box>
+                      <Heading
+                        size="xs"
+                        textTransform="uppercase"
+                        color="#805AD5"
+                      >
+                        Question
+                      </Heading>
+                      <Text pt="2" fontSize="sm">
+                        {survey.body}
+                      </Text>
+                    </Box>
+                    <Box>
+                      <Heading
+                        size="xs"
+                        textTransform="uppercase"
+                        color="#805AD5"
+                      >
+                        Analysis
+                      </Heading>
+                      <Stack>
+                        <Text pt="2" fontSize="sm">
+                          Yes: {survey.yes}
+                        </Text>
+                        <Text fontSize="sm">No: {survey.no}</Text>
+                        {/* <Text fontSize="sm">Responses: {survey.recipients.}</Text> */}
+                      </Stack>
+                    </Box>
+                  </Stack>
+                </CardBody>
+              </Card>
+            ))}
+          </Flex>
+        </>
+      )}
+
       {showModal && (
         <div
           style={{
@@ -43,7 +189,7 @@ const Dashboard = () => {
             zIndex: 1000,
           }}
         >
-          <SurveyNew handleClose={handleClick}/>
+          <SurveyNew handleClose={handleClick} />
         </div>
       )}
     </>

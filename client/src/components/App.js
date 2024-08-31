@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./Root";
 import Landing from "../pages/Landing";
 import Dashboard from "../pages/Dashboard";
-import SurveyNew from "../components/surveys/SurveyNew"
+import SurveyNew from "../components/surveys/SurveyNew";
 import { Spinner, Center } from "@chakra-ui/react";
 import { useFetchUserQuery } from "../store";
 
@@ -39,7 +39,6 @@ const App = () => {
       children: [
         { path: "/", element: <Landing /> },
         { path: "/surveys", element: <Dashboard /> },
-        { path: "/surveys/new", element: <SurveyNew /> },
       ],
     },
   ]);

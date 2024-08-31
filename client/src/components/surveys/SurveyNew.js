@@ -21,6 +21,7 @@ import { usePostSurveyMutation } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSurveyForm } from "../../store";
 import { validateEmails } from "./validateEmails";
+import { userApi } from "../../store";
 
 const Form1 = ({
   surveyTitle,
@@ -167,7 +168,7 @@ const Form2 = ({
 export default function SurveyNew({ handleClose }) {
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState({});
-
+  const dispatch = useDispatch();
   const toast = useToast();
   const { surveyTitle, surveySubject, surveyRecipients, surveyBody } =
     useSelector((state) => state.survey.surveyForm);
@@ -223,6 +224,7 @@ export default function SurveyNew({ handleClose }) {
           isClosable: true,
           position: "top",
         });
+        dispatch(userApi.util.invalidateTags([{ type: "Auth" }]));
         handleClose();
       }
     } catch (error) {

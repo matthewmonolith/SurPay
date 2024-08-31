@@ -2,7 +2,7 @@
 import { useLogoutUserMutation } from "../store";
 import { useNavigate, Link } from "react-router-dom";
 import Payments from "./Payments";
-import surpayLogo from "../assets/surpay3.png"
+import surpayLogo from "../assets/surpay3.png";
 import {
   Box,
   Flex,
@@ -11,31 +11,31 @@ import {
   Button,
   useDisclosure,
   Stack,
-  Image
+  Image,
 } from "@chakra-ui/react";
 
 import { CloseIcon, HamburgerIcon, UnlockIcon } from "@chakra-ui/icons";
 
-const Links = [];
+// const Links = [];
 
-const NavLink = (props) => {
-  const { children } = props;
-  return (
-    <Box
-      as="a"
-      px={2}
-      py={1}
-      rounded={"md"}
-      _hover={{
-        textDecoration: "none",
-        bg: "gray.200",
-      }}
-      href={"#"}
-    >
-      {children}
-    </Box>
-  );
-};
+// const NavLink = (props) => {
+//   const { children } = props;
+//   return (
+//     <Box
+//       as="a"
+//       px={2}
+//       py={1}
+//       rounded={"md"}
+//       _hover={{
+//         textDecoration: "none",
+//         bg: "gray.200",
+//       }}
+//       href={"#"}
+//     >
+//       {children}
+//     </Box>
+//   );
+// };
 
 const Header = ({ userData }) => {
   console.log(userData);
@@ -69,16 +69,31 @@ const Header = ({ userData }) => {
           />
           <HStack spacing={8} alignItems={"center"}>
             <Box>
-              <Link to={userData ? "/surveys" : "/"}><Image style={{'width': '130px', 'height': '58px'}} src={surpayLogo} objectFit="fill"/></Link>
+              <Link to={"/"}>
+                <Image
+                  style={{ width: "130px", height: "58px" }}
+                  src={surpayLogo}
+                  objectFit="fill"
+                />
+              </Link>
             </Box>
             <HStack
               as={"nav"}
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
+              {userData && (
+                <Link to={"/surveys"}>
+                  <Button
+                    variant={"solid"}
+                    colorScheme={"purple"}
+                    size={"sm"}
+                    mr={4}
+                  >
+                    My Surveys
+                  </Button>
+                </Link>
+              )}
             </HStack>
           </HStack>
           <Flex alignItems={"center"} gap="6">
@@ -86,15 +101,6 @@ const Header = ({ userData }) => {
               <>
                 <Box>Credits: {userData.credits}</Box>
                 <Payments />
-                {/* <Button
-                  variant={"solid"}
-                  colorScheme={"purple"}
-                  size={"sm"}
-                  mr={4}
-                  leftIcon={<AddIcon />}
-                >
-                  Add Credits
-                </Button> */}
                 <Button
                   variant={"solid"}
                   colorScheme={"red"}
@@ -124,9 +130,9 @@ const Header = ({ userData }) => {
         {isOpen ? (
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
+              {/* {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
-              ))}
+              ))} */}
             </Stack>
           </Box>
         ) : null}

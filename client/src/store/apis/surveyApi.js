@@ -13,11 +13,14 @@ export const surveyApi = createApi({
           url: "/surveys",
           body: body,
         }),
-        // invalidatesTags: ['Auth'],
+        invalidatesTags:  ["Surveys", { type: "Auth" }],
+      }),
+      fetchSurveys: builder.query({
+        query: () => "/surveys",
+        providesTags: ["Surveys"],
       }),
     };
   },
 });
 
-
-export const { usePostSurveyMutation } = surveyApi;
+export const { usePostSurveyMutation, useFetchSurveysQuery } = surveyApi;

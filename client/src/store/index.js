@@ -20,12 +20,14 @@ export const store = configureStore({
 
 setupListeners(store.dispatch);
 
+export {userApi}
+
 export {
   useFetchUserQuery,
   useLogoutUserMutation,
   useHandleTokenMutation,
 } from "./apis/userApi";
 
-export { usePostSurveyMutation } from "./apis/surveyApi";
+export { usePostSurveyMutation, useFetchSurveysQuery } from "./apis/surveyApi";
 
 export { updateSurveyForm } from "./slices/surveySlice";

@@ -13,7 +13,7 @@ import surpayLogo from "../assets/surpay3.png"
 
 const Landing = () => {
   return (
-    <Container maxW={"5xl"}>
+    <Container maxW={"xl"}>
       <Stack
         textAlign={"center"}
         align={"center"}
