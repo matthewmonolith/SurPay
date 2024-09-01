@@ -36,9 +36,9 @@ module.exports = (app) => {
     });
 
     //create email then send
-    // const mailer = new Mailer(survey, surveyTemplate(survey));
+    const mailer = new Mailer(survey, surveyTemplate(survey));
     try {
-      // await mailer.send();
+      await mailer.send();
       await survey.save();
 
       req.user.credits -= 1;
