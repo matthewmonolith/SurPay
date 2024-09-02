@@ -12,18 +12,20 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import SurveyNew from "../components/surveys/SurveyNew";
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useFetchSurveysQuery } from "../store";
+import { useDeleteSurveyMutation } from "../store";
 
 const Dashboard = () => {
   const { userData } = useOutletContext();
   const navigate = useNavigate();
-  const [sort, setSort] = useState("desc");
   const { data, error, isFetching } = useFetchSurveysQuery();
+  const [triggerDelete] = useDeleteSurveyMutation()
+  const [sort, setSort] = useState("desc");
   const [sortedData, setSortedData] = useState([]);
   console.log(data);
   
@@ -48,6 +50,16 @@ const Dashboard = () => {
   const handleClick = () => {
     setShowModal(!showModal);
   };
+
+  const handleDelete = async (id) => {
+    try {
+     await triggerDelete(id).unwrap()
+     console.log('successfully deleted');
+    } catch (error) {
+      console.error('failed to delete', error)
+    }
+  }
+
   return (
     <>
       {error && (
@@ -95,16 +107,16 @@ const Dashboard = () => {
 
       {data && (
         <>
-          <Flex m="4" gap="4">
+          <Flex m="4" gap="4" justifyContent="center">
             <Button
-              bg="#A0AEC0"
+              bg="#805AD5"
               color="white"
               onClick={() => setSort("desc")}
             >
               Newest
             </Button>
             <Button
-              bg="#A0AEC0"
+              bg="#805AD5"
               color="white"
               onClick={() => setSort("asc")}
             >
@@ -126,7 +138,7 @@ const Dashboard = () => {
                 minWidth="300px"
                 _hover={{
                   bg: "purple.100",
-                  // color: "white",
+                  show: true,
                 }}
               >
                 <CardHeader>
@@ -168,6 +180,7 @@ const Dashboard = () => {
                     </Box>
                   </Stack>
                 </CardBody>
+                <DeleteIcon color="gray" mb="3" ms="4" cursor="pointer" onClick={() => handleDelete(survey._id)}/>
               </Card>
             ))}
           </Flex>

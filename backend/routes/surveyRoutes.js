@@ -51,6 +51,20 @@ module.exports = (app) => {
     }
   });
 
+  app.delete("/api/surveys/:id", requireLogin, async (req, res) => {
+    const { id } = req.params;
+    try {
+      await Survey.findByIdAndDelete(id);
+      res
+        .status(200)
+        .send({ success: true, message: "Survey deleted successfully" });
+    } catch (err) {
+      res
+        .status(500)
+        .send({ success: false, message: "Failed to delete survey" });
+    }
+  });
+
   app.post("/api/surveys/webhooks", (req, res) => {
     const p = new Path("/api/surveys/:surveyId/:choice"); //need this to extract surveyId and choice from url
 

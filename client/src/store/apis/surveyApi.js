@@ -15,6 +15,13 @@ export const surveyApi = createApi({
         }),
         invalidatesTags:  ["Surveys", { type: "Auth" }],
       }),
+      deleteSurvey: builder.mutation({
+        query:(id) => ({
+          method: "DELETE",
+          url:`/surveys/${id}`,
+        }),
+        invalidatesTags:["Surveys"]
+      }),
       fetchSurveys: builder.query({
         query: () => "/surveys",
         providesTags: ["Surveys"],
@@ -23,4 +30,4 @@ export const surveyApi = createApi({
   },
 });
 
-export const { usePostSurveyMutation, useFetchSurveysQuery } = surveyApi;
+export const { usePostSurveyMutation, useFetchSurveysQuery, useDeleteSurveyMutation } = surveyApi;

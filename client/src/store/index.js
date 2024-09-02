@@ -28,6 +28,6 @@ export {
   useHandleTokenMutation,
 } from "./apis/userApi";
 
-export { usePostSurveyMutation, useFetchSurveysQuery } from "./apis/surveyApi";
+export { usePostSurveyMutation, useFetchSurveysQuery, useDeleteSurveyMutation } from "./apis/surveyApi";
 
 export { updateSurveyForm } from "./slices/surveySlice";
